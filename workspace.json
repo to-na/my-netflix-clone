@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "projects": {
+    "discover-videos": "apps/discover-videos",
+    "discover-videos-e2e": "apps/discover-videos-e2e"
+  }
+}
