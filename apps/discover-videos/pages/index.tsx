@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Banner from '../components/Banner';
-import NavBar from '../components/Navbar';
+import NavBar from '../components/NavBar';
+import Card from '../components/Card';
 import styles from './index.module.css';
 
 export function Index() {
@@ -21,6 +22,9 @@ export function Index() {
         subTitle="a very cute dog"
         imgUrl="/clifford.webp"
       />
+      <Card imgUrl="/clifford.webp" size="large" />
+      <Card imgUrl="/cliffod.webp" size="medium" />
+      <Card imgUrl="/clifford.webp" size="small" />
     </div>
   );
 }
