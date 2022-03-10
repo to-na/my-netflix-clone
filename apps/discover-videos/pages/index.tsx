@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Banner from '../components/Banner';
+import NavBar from '../components/Navbar';
 import styles from './index.module.css';
 
 export function Index() {
@@ -14,7 +15,7 @@ export function Index() {
         <title>Netflix</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>Netflix</h1>
+      <NavBar username="Ryuichi" />
       <Banner
         title="Clifford The Red Dog"
         subTitle="a very cute dog"
