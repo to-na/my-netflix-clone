@@ -15,11 +15,10 @@ const NavBar = () => {
     try {
       const { email } = await magic.user.getMetadata();
       if (email) {
-        console.log(email);
         setUsername(email);
       }
     } catch (error) {
-      console.log({ error });
+      console.error({ error });
     }
   });
   const handleOnClickHome = (event) => {
@@ -41,12 +40,10 @@ const NavBar = () => {
     event.preventDefault();
     try {
       await magic.user.logout();
-      console.log(magic.user.isLoggedIn);
       router.push('/login');
     } catch (error) {
       console.error('sign out error', error);
       router.push('/login');
-      // router.push('/login');
     }
   };
   return (

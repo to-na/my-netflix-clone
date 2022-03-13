@@ -23,13 +23,11 @@ const Login = () => {
     };
   }, [router]);
   const handleOnChangeEmail = (event) => {
-    console.log({ event });
     setUserMsg('');
     setEmail(event.target.value);
   };
   const handleLoginWithEmail = async (event) => {
     event.preventDefault();
-    console.log('hi button');
     if (!!email) {
       if (email === 'tonanatz.sh@gmail.com') {
         try {
@@ -37,15 +35,13 @@ const Login = () => {
           const didToken = await magic.auth.loginWithMagicLink({
             email,
           });
-          console.log({ didToken });
         } catch (error) {
           // Handle errors if required!
           console.error('something went wrong', error);
         }
-        console.log('route to dashboard');
         router.push('/');
       } else {
-        console.log('something wrong');
+        console.error('something wrong');
         setIsLoading(false);
       }
     } else {

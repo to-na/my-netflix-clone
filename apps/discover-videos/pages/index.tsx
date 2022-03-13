@@ -13,7 +13,6 @@ export async function getServerSideProps() {
   const productivityVideos = await getVideos('Produtivity');
   const travelVideos = await getVideos('Travel');
   const popularVideos = await getPopularVideos();
-  console.log(disneyVideos);
   return {
     props: { disneyVideos, productivityVideos, travelVideos, popularVideos },
   };
@@ -31,8 +30,9 @@ export function Index({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.main}>
-        <NavBar username="Ryuichi" />
+        <NavBar />
         <Banner
+          videoId="4zH5iYM4wJo"
           title="Clifford The Red Dog"
           subTitle="a very cute dog"
           imgUrl="/clifford.webp"
