@@ -35,11 +35,13 @@ const Login = () => {
           const didToken = await magic.auth.loginWithMagicLink({
             email,
           });
+          if (didToken) {
+            router.push('/');
+          }
         } catch (error) {
           // Handle errors if required!
           console.error('something went wrong', error);
         }
-        router.push('/');
       } else {
         console.error('something wrong');
         setIsLoading(false);
