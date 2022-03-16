@@ -1,6 +1,7 @@
-import { isNewUser } from '../../lib/db/hasura';
+import { isNewUser, createNewUser } from '../../lib/db/hasura';
 import jwt from 'jsonwebtoken';
 import { magicAdmin } from '../../lib/magic';
+import { setTokenCookie } from '../../lib/cookies';
 
 export default async function login(req, res) {
   if (req.method === 'POST') {
@@ -8,6 +9,7 @@ export default async function login(req, res) {
       const auth = req.headers.authorization;
       const didToken = auth ? auth.substr(7) : '';
       const metadata = await magicAdmin.users.getMetadataByToken(didToken);
+      console.log({ metadata });
       const token = jwt.sign(
         {
           ...metadata,
@@ -22,7 +24,9 @@ export default async function login(req, res) {
         process.env.JWT_SECRET
       );
       const isNewUserQuery = await isNewUser(token, metadata.issuer);
-      res.send({ done: true, isNewUserQuery });
+      isNewUserQuery && (await createNewUser(token, metadata));
+      setTokenCookie(token, res);
+      res.send({ done: true });
     } catch (error) {
       console.error('Error in login', error);
       res.status(500).send({ done: false });

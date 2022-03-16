@@ -22,6 +22,7 @@ specifiers:
   '@typescript-eslint/parser': ~5.14.0
   babel-jest: 27.5.1
   classnames: ^2.3.1
+  cookie: ^0.4.2
   core-js: ^3.21.1
   cypress: ^9.5.1
   eslint: ~8.10.0
@@ -51,6 +52,7 @@ dependencies:
   '@magic-sdk/admin': 1.3.4
   '@nrwl/next': 13.8.5_ef28232ab34d50c5fe7c148ce7656809
   classnames: 2.3.1
+  cookie: 0.4.2
   core-js: 3.21.1
   framer-motion: 6.2.8_react-dom@17.0.2+react@17.0.2
   jsonwebtoken: 8.5.1

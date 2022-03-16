@@ -1,11 +1,33 @@
+export async function createNewUser(token, metadata) {
+  const operationsDoc = `
+  mutation createNewUser($issuer: String!, $email: String!, $publicAddress: String!) {
+    insert_users(objects: {email: $email, issuer: $issuer, publicAddress: $publicAddress}) {
+      returning {
+        email
+        id
+        issuer
+      }
+    }
+  }
+`;
+
+  const { issuer, email, publicAddress } = metadata;
+  const response = await queryHasuraGraphQL(
+    operationsDoc,
+    'createNewUser',
+    { issuer, email, publicAddress },
+    token
+  );
+  return response;
+}
+
 export async function isNewUser(token, issuer) {
-  const operationsDoc = `  
+  const operationsDoc = `
   query isNewUser($issuer: String!) {
-    users(where: {issuer: {_eq: $issuer}}){
-      email
+    users(where: {issuer: {_eq: $issuer}}) {
       id
+      email
       issuer
-      publicAddress
     }
   }
   `;
@@ -15,7 +37,7 @@ export async function isNewUser(token, issuer) {
     { issuer },
     token
   );
-  return response?.data.users?.length === 0;
+  return response?.data?.users?.length === 0;
 }
 async function queryHasuraGraphQL(
   operationsDoc,
@@ -26,7 +48,7 @@ async function queryHasuraGraphQL(
   const result = await fetch(process.env.NEXT_PUBLIC_HASURA_ADMIN_URL, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
