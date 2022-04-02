@@ -1,3 +1,26 @@
+export async function findVideoIdByUser(token, userId, videoId) {
+  const operationsDoc = `
+  query findVideoIdByUserId($userId: String!, $videoId: String!) {
+    users {
+      id
+    }
+    stats(where: {userId: {_eq: $userId}, videoId: {_eq: $videoId}}) {
+      id
+      userId
+      videoId
+      watched
+    }
+  }
+`;
+  const response = await queryHasuraGraphQL(
+    operationsDoc,
+    'findVideoIdByUserId',
+    { videoId, userId },
+    token
+  );
+  return response;
+}
+
 export async function createNewUser(token, metadata) {
   const operationsDoc = `
   mutation createNewUser($issuer: String!, $email: String!, $publicAddress: String!) {
